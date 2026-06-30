@@ -5,7 +5,7 @@ import MovieCard from "./components/MovieCard.tsx";
 import { useDebounce } from "react-use";
 //import { updatesearch } from "./appwrite.js";
 const apiKey = import.meta.env.VITE_MOVIE_API_KEY;
-console.log(apiKey);
+//console.log(apiKey);
 const BASEURL = "https://api.themoviedb.org/3/";
 const API_OPTIONS = {
   method: "GET",
@@ -14,10 +14,15 @@ const API_OPTIONS = {
     Authorization: `Bearer ${apiKey}`,
   },
 };
+type movie = {
+  id: number;
+  title: string;
+  poster_path: string;
+};
 const App = () => {
   const [searchtext, setsearchtext] = useState("");
   const [showerror, setshowerror] = useState("");
-  const [movielist, setmovielist] = useState([]);
+  const [movielist, setmovielist] = useState<movie[]>([]);
   const [isLoading, setisLoading] = useState(false);
   const [debouncedSearch, setDebouncedSearch] = useState("");
   useDebounce(
@@ -59,9 +64,6 @@ const App = () => {
     fetchData(debouncedSearch);
   }, [debouncedSearch]);
 
-  /*useEffect(() => {
-    console.log(movielist);
-  }, [movielist]);*/
   return (
     <main>
       <div className="patter" />
@@ -70,7 +72,7 @@ const App = () => {
           <img src="./hero-img.png" alt="hero banner" />
           <h1>
             THIS IS THE <span className="text-gradient">HEADING</span> PART OF
-            THE WEBSITE
+            THE WEBSITE-practice
           </h1>
           <Search searchtext={searchtext} setsearchtext={setsearchtext} />
         </header>
@@ -87,7 +89,7 @@ const App = () => {
                 /*<p key={movie.id} className="text-white">
                   {movie.title}
                 </p>*/
-                <MovieCard data={movie} />
+                <MovieCard key={movie.id} data={movie} />
               ))}
             </ul>
           )}
