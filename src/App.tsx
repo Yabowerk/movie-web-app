@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
-import Search from "./components/Search.jsx";
-import MovieCard from "./components/MovieCard.jsx";
+import Search from "./components/Search.tsx";
+import MovieCard from "./components/MovieCard.tsx";
 import { useDebounce } from "react-use";
 //import { updatesearch } from "./appwrite.js";
 const apiKey = import.meta.env.VITE_MOVIE_API_KEY;
@@ -43,9 +43,9 @@ const App = () => {
         return;
       }
       setmovielist(data.results);
-      if (query && data.results.length > 0) {
+      /*if (query && data.results.length > 0) {
         await updatesearch(query, data.results[0]);
-      }
+      }*/
       //console.log(data.results); //i see the movie list
       //console.log(movielist); //i dont see the movie list why????
     } catch (error) {
@@ -87,7 +87,7 @@ const App = () => {
                 /*<p key={movie.id} className="text-white">
                   {movie.title}
                 </p>*/
-                <MovieCard key={movie.id} data={movie} />
+                <MovieCard data={movie} />
               ))}
             </ul>
           )}
